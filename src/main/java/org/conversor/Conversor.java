@@ -1,5 +1,8 @@
 package org.conversor;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -8,6 +11,7 @@ import java.util.List;
 public class Conversor {
     private final ApiService apiService = new ApiService();
     private final List<String> historico = new ArrayList<>();
+    private final String CAMINHO_ARQUIVO = "historico_conversoes.txt";
 
     public void realizarConversao(String moedaOrigem, String moedaDestino, double valor) {
         try {
@@ -23,8 +27,19 @@ public class Conversor {
 
             historico.add(registro);
 
+            salvarHistoricoNoArquivo(registro);
+
         } catch (Exception e) {
             System.out.println("Erro ao realizar a conversão: " + e.getMessage());
+        }
+    }
+
+    private void salvarHistoricoNoArquivo(String registro) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(CAMINHO_ARQUIVO, true))) {
+            writer.write(registro);
+            writer.newLine();
+        } catch (IOException e) {
+            System.out.println("Erro ao salvar histórico no arquivo: " + e.getMessage());
         }
     }
 

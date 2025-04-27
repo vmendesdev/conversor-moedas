@@ -38,4 +38,4 @@ build/
 .DS_Store
 
 ### KEY API ###
-Config-Api.env
+.env

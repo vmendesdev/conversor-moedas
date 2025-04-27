@@ -12,36 +12,30 @@ public class Main {
         System.out.println("=== Bem-vindo ao Conversor de Moedas ===");
 
         while (true) {
-            System.out.println("\nOpções:");
-            System.out.println("1. Nova Conversão");
-            System.out.println("2. Ver Histórico");
-            System.out.println("3. Sair");
-            System.out.print("Escolha uma opção: ");
-            int escolha = scanner.nextInt();
-            scanner.nextLine(); // Consumir quebra de linha
+            System.out.print("\nDigite a moeda de origem (ex.: USD, EUR, BRL) ou 'sair' para encerrar: ");
+            String moedaOrigem = scanner.nextLine().trim().toUpperCase();
 
-            if (escolha == 3) {
-                System.out.println("Programa encerrado. Até mais!");
+            if (moedaOrigem.equalsIgnoreCase("sair")) {
+                System.out.println("Programa encerrado. Até logo!");
                 break;
             }
 
-            if (escolha == 2) {
-                conversor.mostrarHistorico();
-                continue;
-            }
-
-            System.out.println("\nExemplos de moedas: USD, EUR, GBP, JPY, BRL, ARS, CAD, AUD, CHF, CNY");
-            System.out.print("Digite a moeda de origem: ");
-            String moedaOrigem = scanner.nextLine().toUpperCase();
-
-            System.out.print("Digite a moeda de destino: ");
-            String moedaDestino = scanner.nextLine().toUpperCase();
+            System.out.print("Digite a moeda de destino (ex.: BRL, USD, EUR): ");
+            String moedaDestino = scanner.nextLine().trim().toUpperCase();
 
             System.out.print("Digite o valor a ser convertido: ");
             double valor = scanner.nextDouble();
-            scanner.nextLine(); // Consumir quebra de linha
+            scanner.nextLine(); // Limpa o buffer do Scanner
 
             conversor.realizarConversao(moedaOrigem, moedaDestino, valor);
+
+            System.out.print("\nDeseja realizar outra conversão? (s/n): ");
+            String continuar = scanner.nextLine().trim();
+
+            if (continuar.equalsIgnoreCase("n")) {
+                System.out.println("Programa encerrado. Até logo!");
+                break;
+            }
         }
 
         scanner.close();
